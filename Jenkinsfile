@@ -1,28 +1,10 @@
 pipeline {
     agent any
-    tools {
-        maven 'Maven'  // The name you provided during Maven configuration
+    
+    stage('Checkout') {             
+        steps {                
+            git branch: 'main', credentialsId: 'git', url: 'git@github.com:mohamed10945/jenkins_ssh.git'
+     
     }
-    stages {
-        stage('Checkout') {
-            steps {
-                git url: 'https://github.com/mohamed10945/jenkins.git'
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'mvn clean package'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying...'
-            }
-        }
     }
 }
